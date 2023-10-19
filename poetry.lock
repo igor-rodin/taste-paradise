@@ -110,6 +110,20 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-taggit"
+version = "4.0.0"
+description = "django-taggit is a reusable Django application for simple tagging."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "django-taggit-4.0.0.tar.gz", hash = "sha256:4d52de9d37245a9b9f98c0ec71fdccf1d2283e38e8866d40a7ae6a3b6787a161"},
+    {file = "django_taggit-4.0.0-py3-none-any.whl", hash = "sha256:eb800dabef5f0a4e047ab0751f82cf805bc4a9e972037ef12bf519f52cd92480"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "executing"
 version = "2.0.0"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -577,4 +591,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f9e1a9ab72ebb0fb6cd265f5cabd573217ff30944e5ca96fd3963e5049ccb0bb"
+content-hash = "10cf6f4d5aca6bc9a4f1dfce722f8d114c8abbb0a9bd88400360942d01dce9e5"
