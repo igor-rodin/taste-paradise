@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "taste-paradise"
+version = "0.1.0"
+description = "Проект сайт рецептов на Django. Итоговая аттестация по программе \"Web разработка на Python\""
+authors = ["Igor Rodin <igreen1974@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.6"
+pillow = "^10.1.0"
+psycopg = {extras = ["binary"], version = "^3.1.12"}
+
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.16.1"
+django-extensions = "^3.2.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
