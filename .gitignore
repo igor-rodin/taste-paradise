@@ -1,0 +1,9 @@
+.venv/
+.vscode/
+__pycache__/
+taste_paradise/log/
+migrations/
+taste_paradise/db.sqlite3
+.env/
+.git/
+.DS_Store
