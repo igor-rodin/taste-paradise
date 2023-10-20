@@ -1,11 +1,13 @@
+from collections.abc import Iterable
 from django.db import models
 from django.conf import settings
 from django.shortcuts import reverse
-
+from django.utils.text import slugify
+from unidecode import unidecode
 from taggit.managers import TaggableManager
 
 
-class Category(models.Category):
+class Category(models.Model):
     title = models.CharField(max_length=128, verbose_name="Категория")
     slug = models.SlugField(max_length=128, unique=True, db_index=True)
 
@@ -30,12 +32,14 @@ class Receipe(models.Model):
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Время приготовления (мин.)"
     )
-    image = models.ImageField(upload_to="images/%Y/%m/%d/", blank=True)
-    author = models.ManyToManyField(
+    image = models.ImageField(
+        upload_to="images/%Y/%m/%d/", blank=True, verbose_name="Фото"
+    )
+    author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="receipes",
-        blank=True,
         verbose_name="Автор",
+        on_delete=models.PROTECT,
     )
     category = models.ForeignKey(
         Category,
@@ -43,7 +47,10 @@ class Receipe(models.Model):
         on_delete=models.PROTECT,
         verbose_name="Категория",
     )
-    tags = TaggableManager(verbose_name="Теги")
+    tags = TaggableManager(verbose_name="Теги", help_text="Список тегов", blank=True)
+    user_likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="likes", blank=True
+    )
     created = models.DateTimeField(auto_now_add=True, verbose_name="Опубликован")
     updated = models.DateTimeField(auto_now=True, verbose_name="Обновлен")
 
@@ -53,12 +60,13 @@ class Receipe(models.Model):
     # def get_absolute_url(self):
     #     return reverse('receipes', kwargs={'rec_slug': self.slug})
 
+    def save(self, *args, **kwargs) -> None:
+        title = unidecode(self.title)
+        self.slug = slugify(title)
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
         ordering = ["-created"]
-        indexes = models.Index(
-            fields=[
-                "-created",
-            ]
-        )
+        indexes = [models.Index(fields=["-created"])]

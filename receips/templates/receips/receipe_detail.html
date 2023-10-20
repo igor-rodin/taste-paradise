@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %} {{receipe.title}} {% endblock title%}
+{% block content %}
+<div class="card">
+                <div class="card-header">
+                    {{ receipe.created}} - {{receipe.author.username}} [{{receipe.category}}]
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ receipe.ttitle }}</h5>
+                    <p class="card-text"> {{receipe.description}}</p>
+                    <p class="card-text"> {{receipe.cooking_steps}}</p>
+                    <p class="card-text"> {{receipe.ingredient}}</p>
+                    <a href="{% url "receips:index" %}" class="btn btn-primary">Назад</a>
+                </div>
+            </div> 
+{% endblock content %}

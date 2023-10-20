@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block title %} "Новый рецепт" {% endblock title %}
+{% block content %}
+<div class="container m-lg-auto text_start">
+<h1>Добавьте свой рецепт</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    <div class="mb-3">
+        <label for="{{ form.title.id_for_label}}" class="form-label">Название</label>
+            {{ form.title }}
+        <div class="invalid-feedback">{{ form.title.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.category.id_for_label}}" class="form-label">Выбор категории:</label>
+            {{ form.category }}
+        <div class="invalid-feedback">{{ form.category.errors }}</div>
+    </div>
+    
+    <div class="mb-3">
+                <label for="{{form.description.id_for_label}}" class="form-label">Описание:</label>
+                {{ form.description }}
+                <div class="invalid-feedback">{{ form.description.errors }}</div>
+        </div> 
+    
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="{{form.cooking_steps.id_for_label}}" class="form-label">Пошаговая инструкция по приготовлению:</label>
+                {{ form.cooking_steps }}
+                <div class="invalid-feedback">{{ form.cooking_steps.errors }}</div>
+            </div>         
+        </div> 
+    
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="{{form.ingredient.id_for_label}}" class="form-label">Ингредиенты:</label>
+                {{ form.ingredient }}
+                <div class="invalid-feedback">{{ form.ingredient.errors }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        <label for="{{form.cooking_time.id_for_label}}" class="form-label">Время готовки (мин.):</label>
+        {{ form.cooking_time }}
+        <div class="invalid-feedback">{{ form.cooking_time.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{form.image.id_for_label}}" class="form-label">Фото блюда:</label>
+        {{ form.image }}
+        <div class="invalid-feedback">{{ form.image.errors }}</div>
+    </div>
+    <div class="mb-3">
+        <label for="{{form.tags.id_for_label}}" class="form-label">Теги:</label>
+        {{ form.tags }}
+        <div class="invalid-feedback">{{ form.tags.errors }}</div>
+    </div>
+    
+    <input class='btn btn-primary' type="submit" value=" Опубликовать " />
+    
+    {% if receipe %}
+        <a class='btn btn-secondary' href=' {% url 'receips:index' %}'> Отменить </a>
+    {% endif %}
+        
+  </form>
+</div>
+{% endblock content %}

@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-from django.contrib import admin
 from pathlib import Path
 import os
 
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "taggit",
+    "receips.apps.ReceipsConfig",
 ]
 
 MIDDLEWARE = [
@@ -146,6 +146,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAGGIT_CASE_INSENSITIVE = True
-
-
-admin.site.header = "Панель администриования"
+TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True
