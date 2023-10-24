@@ -43,12 +43,17 @@
                 alt="Профиль"
               />
             </a>
-            <a href="" class="logout profile__img" title="Выйти"
+            <a
+              href="{% url 'account:logout' %}"
+              class="logout profile__img"
+              title="Выйти"
               ><img src="{% static 'img/logout.svg' %}" alt="Профиль"
             /></a>
             {% else %}
-            <a href="" class="auth login">Войти</a>
-            <a href="" class="auth">Зарегистрироваться</a>
+            <a href="{% url 'account:login' %}" class="auth login">Войти</a>
+            <a href="{% url 'account:register' %}" class="auth"
+              >Зарегистрироваться</a
+            >
             {% endif %}
           </div>
         </div>

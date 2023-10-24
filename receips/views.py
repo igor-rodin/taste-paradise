@@ -60,13 +60,13 @@ class ListReceipe(ListView):
 @login_required
 def add_receipe(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
-        form = ReceipeForm(request.POST)
+        form = ReceipeForm(request.POST, request.FILES)
         if form.is_valid():
             receipe: Receipe = form.save(commit=False)
             receipe.author = request.user
             receipe.save()
             form.save_m2m()
-            return redirect("receips:receips")
+            return redirect("receips:all_receipes")
     else:
         form = ReceipeForm(request.POST)
     return render(

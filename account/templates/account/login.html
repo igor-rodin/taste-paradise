@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% load static %} {% block title %} {{ block.super}} |
+Вход {% endblock %} {% block content %}
+<section class="acount">
+  <div class="center">
+    <div class="account-content">
+      <div class="account-login__text">
+        Только зарегистированные пользователи могут добавлять рецепты и лайкать
+      </div>
+      <h2 class="account__caption h3-title">Войти</h2>
+      {{form.non_field.errors}}
+      <form method="post" class="form" action="{% url 'account:login' %}">
+        {% csrf_token %}
+        <div class="form__row">
+          <label class="control" for="{{form.username.id_for_label}}">
+            <img
+              class="control__icon"
+              src=" {% static 'img/profile.svg' %}"
+              alt=""
+            />
+            {{form.username}}
+          </label>
+          <div class="error">{{form.username.errors}}</div>
+        </div>
+
+        <div class="form__row">
+          <label class="control" for="{{form.password.id_for_label}}">
+            <img
+              class="control__icon"
+              src="{% static 'img/pwd.svg' %}"
+              alt=""
+            />
+            {{form.password}}
+          </label>
+          <div class="error">{{form.password.errors}}</div>
+        </div>
+
+        <div class="form__button">
+          <button class="btn btn--account" type="submit">Войти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}

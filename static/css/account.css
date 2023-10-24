@@ -1,0 +1,72 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+}
+
+
+.account-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account__caption {
+    margin-bottom: 46px;
+}
+
+.form__row {
+    flex-grow: 1;
+    width: 40%;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+}
+
+.control__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.control__input {
+    width: 100%;
+    padding: 12px 24px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+
+}
+
+.control__input:active, .control__input:focus, .control__input:hover {
+    transition: all 0.3s;
+    border-bottom: 2px solid darkgreen;
+}
+
+.form__button {
+    margin-top: 32px;
+}
+
+.btn {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 12px 28px;
+    border: 2px solid black;
+    transition: all 0.3s;
+    font-size: 1.2em;
+}
+
+.btn:hover, .btn:active {
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid darkgreen;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.error {
+    color: red;
+}

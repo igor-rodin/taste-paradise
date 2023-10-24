@@ -30,11 +30,9 @@ class Receipe(models.Model):
     cooking_steps = models.TextField(verbose_name="Инструкция")
     ingredient = models.TextField(verbose_name="Ингредиенты ")
     cooking_time = models.PositiveSmallIntegerField(
-        verbose_name="Время приготовления (мин.)"
+        verbose_name="Время приготовления (мин.)",
     )
-    servings = models.PositiveSmallIntegerField(
-        verbose_name="Количество порций", default=1
-    )
+    servings = models.PositiveSmallIntegerField(verbose_name="Количество порций")
     image = models.ImageField(
         upload_to="images/%Y/%m/%d/", blank=True, verbose_name="Фото"
     )

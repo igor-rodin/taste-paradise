@@ -14,6 +14,8 @@ import os
 
 from dotenv import load_dotenv
 
+from django.urls import reverse_lazy
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "taggit",
     "receips.apps.ReceipsConfig",
+    "account.apps.AccountConfig",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +153,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True
+
+LOGIN_REDIRECT_URL = reverse_lazy("receips:all_receipes")

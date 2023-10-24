@@ -1,0 +1,25 @@
+.form__row-add {
+    flex-grow: 1;
+    width: 60%;
+}
+
+.form-add {
+    gap: 24px;
+}
+
+.receipe__input {
+    width: 100%;
+    padding: 10px 18px;
+    margin-top: 8px;
+}
+
+.form-row-receipe {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px
+}
+
+.form__label {
+    padding-top: 8px;
+}

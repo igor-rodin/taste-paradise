@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% load static %} {% block title %} {{ block.super}} |
+Регистрация {% endblock %} {% block content %}
+<section class="acount">
+  <div class="center">
+    <div class="account-content">
+      <h2 class="account__caption h3-title">Регистрация</h2>
+      {{form.non_field.errors}}
+      <form method="post" class="form" action="{% url 'account:register' %}">
+        {% csrf_token %}
+        <div class="form__row">
+          <label class="control" for="{{form.username.id_for_label}}">
+            <img
+              class="control__icon"
+              src=" {% static 'img/profile.svg' %}"
+              alt=""
+            />
+            {{form.username}}
+          </label>
+          <div class="error">{{form.username.errors}}</div>
+        </div>
+
+        <div class="form__row">
+          <label class="control" for="{{form.email.id_for_label}}">
+            <img
+              class="control__icon"
+              src="{% static 'img/email.svg' %}"
+              alt=""
+            />
+            {{form.email}}
+          </label>
+          <div class="error">{{form.email.errors}}</div>
+        </div>
+        <div class="form__row">
+          <label class="control" for="{{form.password1.id_for_label}}">
+            <img
+              class="control__icon"
+              src="{% static 'img/pwd.svg' %}"
+              alt=""
+            />
+            {{form.password1}}
+          </label>
+          <div class="error">{{form.password1.errors}}</div>
+        </div>
+        <div class="form__row">
+          <label class="control" for="{{form.password2.id_for_label}}">
+            <img
+              class="control__icon"
+              src="{% static 'img/pwd.svg' %}"
+              alt=""
+            />
+            {{form.password2}}
+          </label>
+          <div class="error">{{form.password2.errors}}</div>
+        </div>
+
+        <div class="form__button">
+          <button class="btn btn--account" type="submit">
+            Зарегистрироваться
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}
