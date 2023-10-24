@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 from django.db import models
 from django.conf import settings
 from django.shortcuts import reverse
