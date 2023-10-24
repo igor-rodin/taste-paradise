@@ -12,6 +12,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
+    padding-bottom: 34px;
 }
 
 .categories__header {

@@ -14,6 +14,7 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="btn btn-featured"><a href = {% url "receips:add_receipe" %}> Поделитесь своим рецептом</a></div>
         </div>
 
     </div>
@@ -60,6 +61,4 @@
             </div>
         </div>
     </section>
-
-<a href = {% url "receips:add_receipe" %}>Новый рецепт</a>
 {% endblock content %}

@@ -21,3 +21,7 @@
 .last-link--left {
     margin-right: 4px;
 }
+
+.current {
+    margin: 0 4px;
+}

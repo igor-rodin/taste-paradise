@@ -55,7 +55,7 @@
     border: none;
     background-color: transparent;
     padding: 12px 28px;
-    border: 2px solid black;
+    border: 1px solid black;
     transition: all 0.3s;
     font-size: 1.2em;
 }
@@ -63,8 +63,15 @@
 .btn:hover, .btn:active {
     cursor: pointer;
     transition: all 0.3s;
-    border: 2px solid darkgreen;
+    border: 1px solid darkgreen;
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-featured {
+    text-align: center;
+    width: 30%;
+    margin: 0 auto;
+    background-color: ghostwhite;
 }
 
 .error {

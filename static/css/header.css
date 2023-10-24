@@ -22,6 +22,17 @@
     text-transform: uppercase;
 }
 
+.menu-list__item {
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    background-origin: border-box;
+}
+
+.menu-list__item:hover {
+    border-bottom: 2px solid darkgreen;
+    color: darkgreen;
+}
+
 .profile {
     display: flex;
     align-items: center;
