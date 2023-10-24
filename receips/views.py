@@ -58,7 +58,7 @@ class ListReceipe(ListView):
         return Receipe.objects.select_related("author").all()
 
 
-@login_required
+@login_required(login_url="account:login")
 def add_receipe(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ReceipeForm(request.POST, request.FILES)

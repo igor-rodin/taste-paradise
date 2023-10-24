@@ -1,6 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %} {% block content %}
  
   <div class="center">
+    <section class="search-section">
+      {% include "receips/inc/_search.html" %}
+    </section>
     <h1 class="catalog__caption page-caption">Рецепты</h1>
     <div class="content">
       <main class="catalog">

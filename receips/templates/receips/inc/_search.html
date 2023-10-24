@@ -1,0 +1,13 @@
+<div class="search">
+  <form action="" method="post" class="form-search">
+    {% csrf_token %}
+    <input
+      class="form-search__input"
+      type="search"
+      name="search"
+      id="search"
+      placeholder="Поиск по названиям рецептов"
+    />
+    <button class="btn-search">Найти</button>
+  </form>
+</div>
