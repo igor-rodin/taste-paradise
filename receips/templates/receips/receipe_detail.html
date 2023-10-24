@@ -1,15 +1,91 @@
-{% extends 'base.html' %} {% block title %} {{receipe.title}} {% endblock title%}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ block.super }}|{{receipe.title}} {% endblock title %}
+
 {% block content %}
-<div class="card">
+<main class="main receipe-detail">
+        <div class="center">
+            <div class="recipe-header">
+                <h1 class="receipe-header__title page-caption"> {{receipe.category}} / {{ receipe.title}}</h1>
+                <div class="receipe-info recipe-header__info">
+                    <div class="receipe-info__user user-info info-item">
+                        <div class="user-info__avatar avatar">
+                            <img class="avatar__image" src=" {% static 'img/user.jpg' %}" alt="avatar">
+                        </div>
+                        <div class="info__right">
+                            <div class="user-info__name">{{receipe.author}}</div>
+                            <div class="user-info__added">{{receipe.created | date:"d.m.Y"}}</div>
+                        </div>
+                    </div>
+                    <div class="receipe-info__cootime cooktime info-item">
+                        <div class="cooktime-image-warapper">
+                            <img class="timer__image" src="{% static 'img/receipe/Timer.svg' %} " alt="timer">
+                        </div>
+                        <div class="info__right">
+                            <div class="info__right__caption">Время готовки</div>
+                            <div class="cookiteme__time">{{receipe.cooking_time}} мин</div>
+                        </div>
+                    </div>
+                    <div class="receipe-info__serv servings info__right">
+                        <div class="info__right__caption">Количество порций</div>
+                        <div class="receipe-info__servings">{{receipe.servings}}</div>
+                    </div>
+                    <div class="receipe-info__tags tags-detail info-item">
+                        <div class="tags-detail-wrapper">
+                            <img class="tags__image" src=" {% static 'img/receipe/ForkKnife.svg' %} " alt="tags">
+                        </div>
+                        <div class="tags-detail-caption">{{receipe.tags.all | join:", "}}</div>
+                    </div>
+                </div>
+                {% if receipe.image  %}
+                    <div class="recipe-header__image-wrapper">
+                    <img class="receipe-image" src=" {{ receipe.image.url }} " alt="receipe-image">
+                </div>
+                {% endif %}
+                
+                <div class="recipe-header__description">
+                    {{receipe.description | linebreaks}}
+                </div>
+            </div>
+            <div class="receipe-detail">
+                <div class="receipe-detail__ingrediendts ingredients">
+                    <h3 class="ingredients__title subtitle">Ингредиенты:</h3>
+                    <div class="ingredients__text text">
+                        {{receipe.ingredient  | linebreaks}}
+                    </div>
+                </div>
+                <div class="receipe-detail__instructions instructions">
+                    <h3 class="instructions__title subtitle">Инструкции:</h3>
+                    <div class="instructions__text text">
+                        {{receipe.cooking_steps | linebreaks}}
+                    </div>
+                </div>
+            </div>
+            <div class="receipe-likes">
+                <div class="receipe-likes-content likes">
+                    {% if not request.user.is_authenticated %}
+                        <a class="likes__link" title="Зарегистрируйтесь, чтобы поставить  лайк">
+                    {% elif  request.user == receipe.author %}
+                        <a class="likes__link" title="Авторы не могут себя лайкать">
+                    {% else %}
+                         <a class="likes__link" href="" title="Посавьте лайк если вам понравился рецепт">
+                    {% endif %}
+                        <img src=" {% static 'img/receipe/like-button-icon.svg' %}" alt="icon" class="likes__image"></a>
+                    <div class="likes__data">{{receipe.user_likes.count}}</div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% comment %} <div class="card">
                 <div class="card-header">
                     {{ receipe.created}} - {{receipe.author.username}} [{{receipe.category}}]
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ receipe.ttitle }}</h5>
+                    <h5 class="card-title">{{ receipe.title }}</h5>
                     <p class="card-text"> {{receipe.description}}</p>
                     <p class="card-text"> {{receipe.cooking_steps}}</p>
                     <p class="card-text"> {{receipe.ingredient}}</p>
                     <a href="{% url "receips:index" %}" class="btn btn-primary">Назад</a>
                 </div>
-            </div> 
+            </div>  {% endcomment %}
 {% endblock content %}

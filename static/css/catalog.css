@@ -1,0 +1,112 @@
+.catalog__caption {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.content {
+    display: grid;
+    grid-template-areas:
+        "aside receipes"
+        "aside receipes";
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto auto;
+    column-gap: 40px;
+}
+
+.aside {
+    grid-area: aside;
+    display: flex;
+    flex-direction: column;
+}
+
+.catalog {
+    grid-area: receipes;
+}
+
+.h3-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: black;
+}
+
+.catalog__list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.receipe-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+}
+
+.receipe-card--link:hover {
+    transition: opacity 0.3s;
+    opacity: 0.5;
+}
+
+.receipe-card__left {
+    width: 290px;
+    height: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.receipe-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipe-card-info__title {
+    margin-bottom: 16px;
+    color: black;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.receipe-card-info__text {
+    line-height: 1.75;
+    font-weight: 400;
+    margin-bottom: 32px;
+}
+
+.receipe-card-info__bottom, .receipe-card-info__user {
+    display: flex;
+    align-items: center;
+}
+
+.receipe-card-info__bottom {
+    column-gap: 48px;
+}
+
+.receipe-card-info__user {
+    gap: 16px;
+}
+
+.receipe-card-info__user-name {
+    color: black;
+    font-weight: 700;
+}
+
+.receipe-card-info__published {
+    font-size: 14px;
+}
+
+.no-items-info {
+    text-align: center;
+}
+
+.no-items-info__caption {
+    color: black;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.no-items-info__link {
+    font-size: 32px;
+    color: rgba(68, 108, 8, 0.9);
+}

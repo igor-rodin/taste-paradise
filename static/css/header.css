@@ -1,0 +1,59 @@
+.header {
+    margin-bottom: 40px;
+}
+
+.header-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.menu-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    font-weight: 500;
+    color: black;
+    text-transform: uppercase;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    color: black;
+    text-transform: uppercase;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: capitalize;
+}
+
+.auth {
+    /* padding-left: 4px;    */
+    padding-right: 4px;
+}
+
+.login {
+    border-right: 1px solid black;
+}
+
+.profile__img {
+    width: 29px;
+    height: 29px;
+}
+
+.logo {
+    font-family: Lobster, Arial, sans-serif;
+    font-size: 36px;
+    color: black;
+}

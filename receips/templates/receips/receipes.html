@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %} {% block content %}
+ 
+  <div class="center">
+    <h1 class="catalog__caption page-caption">Рецепты</h1>
+    <div class="content">
+      <main class="catalog">
+        <div class="catalog__list receips">
+          {% for item in receips %}
+          <a class="receipe-card--link" href="{{ item.get_absolute_url }}">
+            <div class="receips__item receipe-card">
+              <div class="receipe-card__left">
+                <img
+                  class="receive-card__image"
+                  src="{{item.image.url}}"
+                  alt="photo"
+                />
+              </div>
+              <div class="receipe-card__right receipe-card-info">
+                <div class="receipe-card-info__title">{{item.title}}</div>
+                <div class="receipe-card-info__text">
+                  {{ item.description| truncatewords:20}}
+                </div>
+                <div class="receipe-card-info__bottom">
+                  <div class="receipe-card-info__user">
+                    <div class="receipe-card-info__user-avatar avatar">
+                      <img
+                        class="receipe-card-info__avatar-image"
+                        src="{% static 'img/user.jpg'%}"
+                        alt=""
+                      />
+                    </div>
+                    <div class="receipe-card-info__user-name">
+                      {{item.author}}
+                    </div>
+                  </div>
+                  <div class="receipe-card-info__published">
+                    {{item.created | date:"d.m.Y"}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% empty %}
+                <div class="no-items-info">
+                    <h3 class="no-items-info__caption">В данной категории рецептов пока нет</h3>
+                    <a class="no-items-info__link" href="{% url 'receips:add_receipe' %}">Хотите добавить свой?</a>
+                </div>
+          {% endfor %}
+        </div>
+      </main>
+      <aside class="aside">
+        <div class="category-content"> 
+            <h3 class="category_caption h3-title">Категории</h3>
+            <div class="category__list categories">
+            {% get_categories as categories %} {% for cat in categories %}
+            <div class="category-card category-card--aside">
+                <img
+                src="{{ cat.image.url }}"
+                class="category-card__image"
+                alt="Категория"
+                />
+                <a
+                href=" {% url 'receips:all_receipes' cat.slug %} "
+                class="category-card__link"
+                >
+                {{cat.title | capfirst}}
+                </a>
+            </div>
+            
+            {% endfor %}
+            </div>
+        </div>
+        <div class="tags-content">
+            <h3 class="tags_caption h3-title">Популярные тэги</h3>
+            <div class="tags__list tags">
+                {% get_tags as tags%}
+                
+                {% for tag in tags %}
+                    <a href="{% url 'receips:receipes_by_tags' tag.slug %}" class="tag-card_link">
+                        <div class="tag__item tag-card">
+                                {{tag}}
+                        </div>
+                    </a>    
+                {% endfor %}
+                    
+                
+            </div>
+        </div>
+       </aside>
+    </div>
+  </div>
+</section>
+{% endblock content %}

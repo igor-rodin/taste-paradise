@@ -1,27 +1,65 @@
-{% extends 'base.html' %} {% block title %}Главная{% endblock title %} 
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock title %} 
 {% block content %}
-<h1>Рецепты</h1>
-
-<div class="container text-center">
-
-<div class="row justify-content-center">
-    {% for receipe in receips %}
-        <div class="col-4">
-            <div class="card">
-                <div class="card-header">
-                    {{ receipe.created}} - {{receipe.author.username}} [{{receipe.category}}]
+<section class="categories">
+    <div class="center">
+        <div class="categories-content">
+            <h2 class="categories__header caption">Популярные категории</h2>
+            <div class="categories-content__items">
+                {% for cat in categories  %}
+                    <div class="category-card">
+                    <img src="{{ cat.image.url }}" class="category-card__image" alt="Категория">
+                    <a href=" {% url 'receips:all_receipes' cat.slug %} " class="category-card__link"> {{cat.title | capfirst}} </a>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ receipe.title }}</h5>
-                    <p class="card-text"> {{receipe.description}}</p>
-                    <a href="{% url "receips:receipe_detail" receipe.slug %}" class="btn btn-primary">Посмотреть</a>
-                </div>
-            </div> 
+                {% endfor %}
+            </div>
         </div>
-    {% endfor %}
-</div>
 
-</div>
+    </div>
+</section>
+<section class="featured">
+        <div class="center">
+            <div class="featured-content">
+                <h2 class="featured-content__header caption">Простые и вкусные рецепты</h2>
+                <div class="featured-content__text">Несколько простых рецептов, пользующиеся популярньстью</div>
+                <div class="featured-content__items">
+                    {% for item in receips %}
+                        <div class="featured-receipe-card">
+                            <a href="{{item.get_absolute_url}} " class="featured-receipe-card__link">
+                                <div class="featured-receipe-card__image-wrapper">
+                                    <img src="{{item.image.url}}" alt="рецепт" class="featured-receipe-card__image">
+                                </div>
+                            </a>
+                            <h3 class="featuerd-receipe-card__title"> {{item.title}}
+                            </h3>
+                            <div class="featured-receipe-card__bottom">
+                                <div class="featured-receipe-card__time featured-receipe-card__bottom-item">
+                                    <img src=" {% static '/img/receipe/Timer.svg' %} " alt="icon"
+                                        class="featured-receipe-card__bottom-item__image">
+                                    <div class="featured-receipe-card__bottom-item__text">{{item.cooking_time}} минут</div>
+                                </div>
+
+                                {% if item.tags %}
+                                    <div class="featured-receipe-card__tag featured-receipe-card__bottom-item">
+                                        <img src="{% static 'img/receipe/ForkKnife.svg' %}" alt="icon"
+                                            class="featured-receipe-card__bottom-item__image">
+                                        <div class="featured-receipe-card__bottom-item__text"> {{item.tags.all | join:", "}}</div>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="featured-receipe-card__like featured-receipe-card__bottom-item">
+                                    <img src="{% static 'img/receipe/like-button-icon.svg'%} " alt="icon"
+                                        class="featured-receipe-card__bottom-item__image">
+                                    <div class="featured-receipe-card__bottom-item__text">{{item.user_likes.count}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
 
 <a href = {% url "receips:add_receipe" %}>Новый рецепт</a>
 {% endblock content %}

@@ -10,14 +10,14 @@ from taggit.managers import TaggableManager
 class Category(models.Model):
     title = models.CharField(max_length=128, verbose_name="Категория")
     slug = models.SlugField(max_length=128, unique=True, db_index=True)
+    image = models.ImageField(
+        upload_to="images/category/", blank=True, verbose_name="Изображение категории"
+    )
 
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
         ordering = ["title"]
-
-    # def get_absolute_url(self):
-    #     return reverse("category", kwargs={"cat_slug": self.slug})
 
     def __str__(self):
         return self.title
@@ -31,6 +31,9 @@ class Receipe(models.Model):
     ingredient = models.TextField(verbose_name="Ингредиенты ")
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Время приготовления (мин.)"
+    )
+    servings = models.PositiveSmallIntegerField(
+        verbose_name="Количество порций", default=1
     )
     image = models.ImageField(
         upload_to="images/%Y/%m/%d/", blank=True, verbose_name="Фото"
@@ -57,8 +60,8 @@ class Receipe(models.Model):
     def __str__(self) -> str:
         return f"{self.title} - {self.author.username}"
 
-    # def get_absolute_url(self):
-    #     return reverse('receipes', kwargs={'rec_slug': self.slug})
+    def get_absolute_url(self):
+        return reverse("receips:receipe_detail", kwargs={"rec_slug": self.slug})
 
     def save(self, *args, **kwargs) -> None:
         title = unidecode(self.title)

@@ -17,7 +17,7 @@ class AdminReceipe(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_display = (
         "title",
-        "description",
+        "short_desc",
         "cooking_time",
         "category",
         "author",
@@ -26,10 +26,12 @@ class AdminReceipe(admin.ModelAdmin):
 
     fields = (
         "title",
+        "image",
         "description",
         "cooking_steps",
         "ingredient",
         "cooking_time",
+        "servings",
         "category",
         "tags",
         "slug",
@@ -41,3 +43,9 @@ class AdminReceipe(admin.ModelAdmin):
     @admin.display(description="Теги")
     def tag_list(self, obj):
         return ", ".join(o.name for o in obj.tags.all())
+
+    @admin.display(description="Описание")
+    def short_desc(self, obj):
+        if len(obj.description) < 50:
+            return obj.description
+        return f"{obj.description[:50]}..."

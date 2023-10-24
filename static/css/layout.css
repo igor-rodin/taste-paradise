@@ -1,0 +1,37 @@
+ * {
+     box-sizing: border-box;
+ }
+
+ a {
+     color: inherit;
+     text-decoration: none;
+ }
+
+ ul {
+     list-style: none;
+ }
+
+ img {
+     height: 100%;
+     object-fit: contain;
+ }
+
+ body {
+     font-family: Inter, sans-serif;
+     font-weight: 500;
+     font-size: 16px;
+     font-style: normal;
+     color: rgba(0, 0, 0, 0.6);
+     background-color: #fff;
+ }
+
+ .center {
+     max-width: 1280px;
+     margin: 0 auto;
+ }
+
+ .caption {
+     font-weight: 600;
+     color: black;
+     font-size: 48px;
+ }
