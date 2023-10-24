@@ -49,6 +49,7 @@ class ListReceipe(ListView):
     model = Receipe
     template_name = "receips/receipes.html"
     context_object_name = "receips"
+    paginate_by = 4
 
     def get_queryset(self):
         slug = self.kwargs.get("cat_slug")

@@ -1,0 +1,23 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 64px;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.next-link {
+    color: darkgreen;
+}
+
+.last-link {
+    color: blue;
+}
+
+.last-link--right {
+    margin-left: 4px;
+}
+
+.last-link--left {
+    margin-right: 4px;
+}
