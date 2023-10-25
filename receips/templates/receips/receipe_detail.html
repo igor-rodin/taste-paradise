@@ -2,6 +2,15 @@
 {% load static %}
 {% block title %} {{ block.super }}|{{receipe.title}} {% endblock title %}
 
+
+{% block avatar %}
+    <img
+  class="profile__img"
+  src=" {{ request.user.profile.avatar.url }} "
+  alt="Профиль"/>
+{% endblock avatar %}
+    
+
 {% block content %}
 <main class="main receipe-detail">
         <div class="center">

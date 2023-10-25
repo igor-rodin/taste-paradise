@@ -6,6 +6,11 @@
     color: rgba(0, 0, 0, 0.4);
 }
 
+.step-links {
+    display: flex
+}
+
+
 .next-link {
     color: darkgreen;
 }

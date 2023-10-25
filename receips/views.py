@@ -76,8 +76,19 @@ class ListReceipe(ListView):
 
     def get_queryset(self):
         slug = self.kwargs.get("cat_slug")
+        searched_value = None
+        if self.request.GET:
+            searched_value = self.request.GET["search"]
+        if slug and searched_value:
+            return Receipe.objects.select_related("author").filter(
+                category__slug=slug, title__icontains=searched_value
+            )
         if slug:
             return Receipe.objects.select_related("author").filter(category__slug=slug)
+        if searched_value:
+            return Receipe.objects.select_related("author").filter(
+                title__icontains=searched_value
+            )
         return Receipe.objects.select_related("author").all()
 
 

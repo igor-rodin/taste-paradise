@@ -1,12 +1,11 @@
-{% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %} {% block content %}
-{% block avatar %}
+{% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %}{% block avatar %}
     <img
         class="profile__img"
         src=" {{ request.user.profile.avatar.url }} "
                 alt="Профиль"
     />
 {% endblock %}
-
+ {% block content %}
   <div class="center">
     <section class="search-section">
       {% include "receips/inc/_search.html" %}

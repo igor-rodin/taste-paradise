@@ -1,5 +1,9 @@
 <div class="search">
-  <form action="" method="post" class="form-search">
+  <form
+    action="{% url 'receips:all_receipes' %}"
+    method="get"
+    class="form-search"
+  >
     {% csrf_token %}
     <input
       class="form-search__input"
