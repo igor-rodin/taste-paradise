@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load profile_tags %}
+
 {% block title %}Главная{% endblock title %} 
+
+{% block avatar %}
+{% get_profile request.user.pk as profile %}
+    <img
+        class="profile__img"
+        src=" {{ profile.avatar.url }} "
+                alt="Профиль"
+    />
+{% endblock avatar %}
+
 {% block content %}
 <section class="categories">
     <div class="center">

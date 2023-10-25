@@ -1,12 +1,15 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView, ListView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, UpdateView
 
 from taggit.models import Tag
 
 from .forms import ReceipeForm
 from .models import Receipe, Category
+from account.models import Profile
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -17,8 +20,11 @@ def index(request: HttpRequest) -> HttpResponse:
         .all()[: show_receipes + 1]
     )
 
+    profile = None
+    if request.user.is_authenticated:
+        profile = get_object_or_404(Profile, user__pk=request.user.pk)
     categories = Category.objects.all()
-    context = {"categories": categories, "receips": receips}
+    context = {"categories": categories, "receips": receips, "user_profile": profile}
 
     return render(request, template_name="receips/index.html", context=context)
 
@@ -43,6 +49,23 @@ class DetailReceipe(DetailView):
             .prefetch_related("tags", "user_likes")
             .first()
         )
+
+
+class UpdateReceipeView(UserPassesTestMixin, UpdateView):
+    model = Receipe
+    template_name = "receips/add_receipe.html"
+    form_class = ReceipeForm
+    context_object_name = "receipe"
+    success_url = reverse_lazy("receips:all_receipes")
+    slug_url_kwarg = "rec_slug"
+
+    def test_func(self) -> bool | None:
+        rec_obj = (
+            Receipe.objects.select_related("author")
+            .filter(slug=self.kwargs["rec_slug"])
+            .first()
+        )
+        return self.request.user == rec_obj.author
 
 
 class ListReceipe(ListView):

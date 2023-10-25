@@ -1,4 +1,13 @@
 {% extends 'base.html' %} {% block title %} {{ block.super }} | Новый рецепт {% endblock title %}
+{% load profile_tags %}
+{% block avatar %}
+  {% get_profile request.user.pk as profile %}
+    <img
+        class="profile__img"
+        src=" {{ profile.avatar.url }} "
+                alt="Профиль"
+    />
+{% endblock %}
 {% block content %}
     <section>
         <div class="center">
@@ -57,7 +66,7 @@
                     <button class="btn btn--account" type="submit">Опубликовать</button>
                 </div>
                 {% if receipe %}
-                    <a class='btn ' href=' {% url 'receips:index' %}'> Отменить </a>
+                    <a class='btn ' href=' {% url 'receips:all_receipes' %}'> Отменить </a>
                 {% endif %}
             </form>
             </div>

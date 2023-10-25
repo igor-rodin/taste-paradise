@@ -7,7 +7,8 @@ class Profile(models.Model):
         settings.AUTH_USER_MODEL, verbose_name="Пользователь", on_delete=models.CASCADE
     )
     avatar = models.ImageField(
-        upload_to="images/avtars/", default="img/profile.svg", blank=True
+        upload_to="images/avatars/",
+        default="images/avatars/profile.svg",
     )
     archived = models.BooleanField(default=False, verbose_name="Архивирован")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Создан")

@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% load static %} {% block title %} {{ block.super }}
+| Профиль {% endblock title %} {% block avatar %}
+<img class="profile__img" src=" {{ profile.avatar.url }} " alt="Профиль" />
+{% endblock avatar %} {% block content %} {% load profile_tags %}
+<section class="profile">
+  <div class="center">
+    <div class="profile-content">
+      <div class="profile-content__header profile-content-row">
+        <h1 class="profile-content__caption caption">Профиль</h1>
+        <a href="" class="profile-content__edit btn">Редактировать</a>
+      </div>
+      <div class="profile-content__main">
+        <div class="profile-content-row">
+          <div class="profile__img-warapper">
+            <img
+              src="{{ profile.avatar.url }}"
+              alt="avatar"
+              class="profile__avatar avatar"
+            />
+          </div>
+          <div class="profile-username">{{profile.user.username}}</div>
+        </div>
+        <div class="profile-content-row">
+          <img
+            class="profile-icon"
+            src="{% static 'img/email.svg' %} "
+            alt="icon"
+          />
+          <div class="profile-email">Email:</div>
+          <div class="profile-username">{{profile.user.email}}</div>
+        </div>
+        <div class="profile-content-row">
+          <a href="" title="Посмотреть рецепты"
+            ><img
+              class="profile-icon profile-icon--edit"
+              src="{% static 'img/edit.svg' %} "
+              alt=""
+          /></a>
+          <div class="profile-receipes">Опубликовано рецептов:</div>
+          {% get_recipes_count profile.user.pk as count %}
+          <div class="profile-username">{{count}}</div>
+        </div>
+        <div class="profile-content-row profile-content-row--edit">
+          <a href="" class="profile-change-pssword btn">Сменить пароль</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock%}

@@ -1,6 +1,13 @@
 from django.urls import path
 
-from .views import add_receipe, index, DetailReceipe, ListReceipe, get_receipes_by_tag
+from .views import (
+    add_receipe,
+    index,
+    DetailReceipe,
+    ListReceipe,
+    get_receipes_by_tag,
+    UpdateReceipeView,
+)
 
 app_name = "receips"
 
@@ -11,6 +18,11 @@ urlpatterns = [
         "receipes/detail/<slug:rec_slug>/",
         DetailReceipe.as_view(),
         name="receipe_detail",
+    ),
+    path(
+        "receipes/detail/<slug:rec_slug>/update",
+        UpdateReceipeView.as_view(),
+        name="update_receipe",
     ),
     path("receipes/cat/<slug:cat_slug>/", ListReceipe.as_view(), name="all_receipes"),
     path(

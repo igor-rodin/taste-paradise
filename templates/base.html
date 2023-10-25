@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -14,7 +13,6 @@
     <link rel="stylesheet" href=" {% static 'css/main.css' %}" />
     <title>{% block title %}Рай Вкусов{% endblock title %}</title>
   </head>
-
   <body>
     <header class="header">
       <div class="center">
@@ -35,13 +33,19 @@
           </nav>
           <div class="profile">
             {% if request.user.is_authenticated %}
-            <a href="" class="user" title="Профиль пользователя">
+            <a
+              href="{% url 'account:profile' %}"
+              class="user"
+              title="Профиль пользователя"
+            >
               <div class="user__name">{{request.user.username}}</div>
+              {% block avatar %}
               <img
                 class="profile__img"
                 src=" {% static 'img/profile.svg' %} "
                 alt="Профиль"
               />
+              {% endblock avatar %}
             </a>
             <a
               href="{% url 'account:logout' %}"

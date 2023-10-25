@@ -1,0 +1,44 @@
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 48px;
+    height: 100vh;
+    text-transform: none;
+    width: 60vw;
+}
+
+.profile-content-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.profile-content__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+}
+
+.profile-content__header {
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.profile-content-row--edit {
+    height: 100%;
+}
+
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.profile-icon--edit:hover {
+    transition: all 0.3s;
+    opacity: 0.3;
+}

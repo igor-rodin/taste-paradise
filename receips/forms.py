@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Receipe, Category
+from taggit.forms import TagWidget
 
 
 class ReceipeForm(forms.ModelForm):
@@ -51,7 +52,7 @@ class ReceipeForm(forms.ModelForm):
                 attrs={"class": "receipe__input", "rows": 5}
             ),
             "ingredient": forms.Textarea(attrs={"class": "receipe__input", "rows": 5}),
-            "tags": forms.TextInput(
+            "tags": TagWidget(
                 attrs={
                     "class": "receipe__input",
                     "placeholder": "(Например: полезно мясо)",

@@ -1,12 +1,16 @@
+from typing import Any
+from django.db import models
 from django.forms.models import BaseModelForm
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .forms import RegisterForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
+
+from .models import Profile
 
 
 class RegisterView(CreateView):
@@ -42,6 +46,7 @@ def register(request: HttpRequest) -> HttpResponse:
                 username = form.cleaned_data.get("username")
                 pwd = form.cleaned_data.get("password1")
                 new_user = authenticate(request, username=username, password=pwd)
+                Profile.objects.create(user=new_user)
                 login(request, user=new_user)
                 return redirect("receips:all_receipes")
         else:
@@ -51,3 +56,17 @@ def register(request: HttpRequest) -> HttpResponse:
     return render(
         request, template_name="account/register.html", context={"form": form}
     )
+
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = "account/profile.html"
+    context_object_name = "profile"
+
+    def get_object(self, queryset=None):
+        profile = (
+            Profile.objects.select_related("user")
+            .filter(user__pk=self.request.user.pk)
+            .first()
+        )
+        return profile

@@ -1,5 +1,14 @@
 {% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %} {% block content %}
- 
+ {% load profile_tags %}
+{% block avatar %}
+  {% get_profile request.user.pk as profile %}
+    <img
+        class="profile__img"
+        src=" {{ profile.avatar.url }} "
+                alt="Профиль"
+    />
+{% endblock %}
+
   <div class="center">
     <section class="search-section">
       {% include "receips/inc/_search.html" %}
@@ -76,8 +85,7 @@
         <div class="tags-content">
             <h3 class="tags_caption h3-title">Популярные тэги</h3>
             <div class="tags__list tags">
-                {% get_tags as tags%}
-                
+                {% get_tags as tags %}
                 {% for tag in tags %}
                     <a href="{% url 'receips:receipes_by_tags' tag.slug %}" class="tag-card_link">
                         <div class="tag__item tag-card">
