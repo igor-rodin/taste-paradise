@@ -13,6 +13,4 @@ def get_recipes_count(auth_pk) -> int:
 
 @register.simple_tag
 def get_profile(auth_pk):
-    print("-------------")
-    print(Profile.objects.filter(user__pk=auth_pk).first())
     return Profile.objects.filter(user__pk=auth_pk).first()

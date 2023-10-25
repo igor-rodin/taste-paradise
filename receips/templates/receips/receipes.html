@@ -1,10 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% load aside_tags %}{% block title%} {{ block.super }} |Список рецептов {% endblock %} {% block content %}
- {% load profile_tags %}
 {% block avatar %}
-  {% get_profile request.user.pk as profile %}
     <img
         class="profile__img"
-        src=" {{ profile.avatar.url }} "
+        src=" {{ request.user.profile.avatar.url }} "
                 alt="Профиль"
     />
 {% endblock %}

@@ -7,7 +7,11 @@
     <div class="profile-content">
       <div class="profile-content__header profile-content-row">
         <h1 class="profile-content__caption caption">Профиль</h1>
-        <a href="" class="profile-content__edit btn">Редактировать</a>
+        <a
+          href="{% url 'account:profile_edit' %}"
+          class="profile-content__edit btn"
+          >Редактировать</a
+        >
       </div>
       <div class="profile-content__main">
         <div class="profile-content-row">
@@ -41,7 +45,11 @@
           <div class="profile-username">{{count}}</div>
         </div>
         <div class="profile-content-row profile-content-row--edit">
-          <a href="" class="profile-change-pssword btn">Сменить пароль</a>
+          <a
+            href="{% url 'account:change_password' %}"
+            class="profile-change-pssword btn"
+            >Сменить пароль</a
+          >
         </div>
       </div>
     </div>

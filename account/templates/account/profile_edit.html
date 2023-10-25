@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% load static %} {% block title %} {{ block.super}} |
+Регистрация {% endblock %} {% block avatar %}
+<img
+  class="profile__img"
+  src=" {{ request.user.profile.avatar.url }} "
+  alt="Профиль"
+/>
+{% endblock avatar %} {% block content %}
+<section class="acount">
+  <div class="center">
+    <div class="account-content">
+      <h2 class="account__caption h3-title">
+        Редактирование профиля {{request.user}}
+      </h2>
+      {{form.non_field.errors}}
+      <form method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form__row form__row-edit-profile">
+          <label class="control" for="{{user_form.email.id_for_label}}">
+            <img
+              class="control__icon"
+              src="{% static 'img/email.svg' %}"
+              alt=""
+            />
+            {{user_form.email}}
+          </label>
+          <div class="error">{{user_form.email.errors}}</div>
+        </div>
+        <div class="form__row-add">
+          <label
+            class="form__label"
+            for="{{profile_form.avatar.id_for_label}}"
+            class="form__label"
+            >Аватарка: {{profile_form.avatar}}
+          </label>
+        </div>
+
+        <div class="form__button">
+          <button class="btn btn--account" type="submit">Подвердить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}

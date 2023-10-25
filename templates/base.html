@@ -39,13 +39,13 @@
               title="Профиль пользователя"
             >
               <div class="user__name">{{request.user.username}}</div>
-              {% block avatar %}
+              {%block avatar%}
               <img
                 class="profile__img"
-                src=" {% static 'img/profile.svg' %} "
+                src=" {{ request.user.profile.url }} "
                 alt="Профиль"
               />
-              {% endblock avatar %}
+              {%endblock%}
             </a>
             <a
               href="{% url 'account:logout' %}"

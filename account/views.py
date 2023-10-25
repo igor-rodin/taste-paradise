@@ -6,10 +6,22 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView, DetailView
-from .forms import RegisterForm, UserLoginForm
 from django.contrib import messages
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeView,
+    PasswordChangeDoneView,
+)
 
+from .forms import (
+    RegisterForm,
+    UserLoginForm,
+    UserChangePasswordForm,
+    UserEditForm,
+    ProfileEditForm,
+)
 from .models import Profile
 
 
@@ -35,6 +47,16 @@ class UserLogin(LoginView):
 
 class UserLogout(LogoutView):
     next_page = reverse_lazy("receips:index")
+
+
+class ChangeUserPassword(PasswordChangeView):
+    template_name = "account/change_password.html"
+    form_class = UserChangePasswordForm
+    success_url = reverse_lazy("account:password_change_done")
+
+
+class ChangeUserPasswordDone(PasswordChangeDoneView):
+    template_name = "account/change_password_done.html"
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -70,3 +92,25 @@ class ProfileView(DetailView):
             .first()
         )
         return profile
+
+
+@login_required
+def profile_edit(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        profile_form = ProfileEditForm(
+            instance=request.user.profile, data=request.POST, files=request.FILES
+        )
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect(reverse_lazy("account:profile"))
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+
+    return render(
+        request,
+        template_name="account/profile_edit.html",
+        context={"user_form": user_form, "profile_form": profile_form},
+    )
