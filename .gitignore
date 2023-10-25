@@ -2,9 +2,10 @@
 .vscode/
 __pycache__/
 taste_paradise/log/
+taste_paradise/__init__.py
 migrations/
 db.sqlite3
-.env/
+.env
 .git/
 .DS_Store
 media/
