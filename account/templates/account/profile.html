@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% load static %} {% block title %} {{ block.super }}
-| Профиль {% endblock title %} {% block avatar %}
-<img class="profile__img" src=" {{ profile.avatar.url }} " alt="Профиль" />
+| Профиль {% endblock title %} {% block avatar %}<img
+  class="profile__img"
+  src=" {{ profile.avatar.url }} "
+  alt="Профиль"
+/>
 {% endblock avatar %} {% block content %} {% load profile_tags %}
 <section class="profile">
   <div class="center">
@@ -34,15 +37,17 @@
           <div class="profile-username">{{profile.user.email}}</div>
         </div>
         <div class="profile-content-row">
-          <a href="" title="Посмотреть рецепты"
-            ><img
-              class="profile-icon profile-icon--edit"
-              src="{% static 'img/edit.svg' %} "
-              alt=""
-          /></a>
+          <img
+            class="profile-icon"
+            src="{% static 'img/recipes.svg' %} "
+            alt=""
+          />
           <div class="profile-receipes">Опубликовано рецептов:</div>
           {% get_recipes_count profile.user.pk as count %}
           <div class="profile-username">{{count}}</div>
+        </div>
+        <div class="profile-content-form">
+          {% include 'receips/inc/_profile_receips.html' %}
         </div>
         <div class="profile-content-row profile-content-row--edit">
           <a

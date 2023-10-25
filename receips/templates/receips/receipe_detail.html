@@ -19,7 +19,8 @@
                 <div class="receipe-info recipe-header__info">
                     <div class="receipe-info__user user-info info-item">
                         <div class="user-info__avatar avatar">
-                            <img class="avatar__image" src=" {% static 'img/user.jpg' %}" alt="avatar">
+                            <img class="avatar__image" src=" {{receipe.author.profile.avatar.url}}" alt="avatar">
+                            {% comment %} <img class="avatar__image" src=" {% static 'img/user.jpg' %}" alt="avatar"> {% endcomment %}
                         </div>
                         <div class="info__right">
                             <div class="user-info__name">{{receipe.author}}</div>

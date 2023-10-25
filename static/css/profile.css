@@ -42,3 +42,8 @@
     transition: all 0.3s;
     opacity: 0.3;
 }
+
+.profile__avatar {
+    width: 124px;
+    height: 124px;
+}

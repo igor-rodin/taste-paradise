@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="profile-recipes">
+  <details open>
+    <summary>Добавленные рецепты</summary>
+    <div class="profile-receipes-list">
+      {% for item in receipes %}
+      <div class="receipe-card-profile">
+        <div class="receipe-card-profile__title after-elem">{{item.title}}</div>
+        <div class="receipe-card-profile__published after-elem">
+          {{item.updated| date:'d.m.Y'}}
+        </div>
+        <a
+          title="Редактировать рецепт"
+          href="{% url 'receips:update_receipe'  item.slug %}"
+          class="receipe-card-profile__edit profile-icon--edit"
+          ><img src=" {% static 'img/edit.svg' %}" alt="icon"
+        /></a>
+      </div>
+      {% endfor %}
+    </div>
+  </details>
+</div>

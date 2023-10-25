@@ -34,8 +34,8 @@
                     <div class="receipe-card-info__user-avatar avatar">
                       <img
                         class="receipe-card-info__avatar-image"
-                        src="{% static 'img/user.jpg'%}"
-                        alt=""
+                        src="{{item.author.profile.avatar.url}}"
+                        alt="avatar"
                       />
                     </div>
                     <div class="receipe-card-info__user-name">

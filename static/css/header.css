@@ -61,6 +61,7 @@
 .profile__img {
     width: 29px;
     height: 29px;
+    border-radius: 50%;
 }
 
 .logo {

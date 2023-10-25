@@ -78,7 +78,8 @@ class ListReceipe(ListView):
         slug = self.kwargs.get("cat_slug")
         searched_value = None
         if self.request.GET:
-            searched_value = self.request.GET["search"]
+            page = self.request.GET.get("page", None)
+            searched_value = self.request.GET.get("search", None)
         if slug and searched_value:
             return Receipe.objects.select_related("author").filter(
                 category__slug=slug, title__icontains=searched_value
