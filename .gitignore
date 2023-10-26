@@ -3,7 +3,7 @@
 __pycache__/
 taste_paradise/log/
 taste_paradise/__init__.py
-migrations/
+# migrations/
 db.sqlite3
 .env
 .git/
