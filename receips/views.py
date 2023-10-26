@@ -1,10 +1,10 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, UpdateView
-
+from django.views.decorators.http import require_POST
 from taggit.models import Tag
 
 from .forms import ReceipeForm
@@ -17,7 +17,7 @@ def index(request: HttpRequest) -> HttpResponse:
     receips = (
         Receipe.objects.select_related("author")
         .prefetch_related("tags", "user_likes")
-        .all()[: show_receipes + 1]
+        .all()[:show_receipes]
     )
 
     profile = None
@@ -108,3 +108,24 @@ def add_receipe(request: HttpRequest) -> HttpResponse:
     return render(
         request, template_name="receips/add_receipe.html", context={"form": form}
     )
+
+
+@login_required
+@require_POST
+def like(request: HttpRequest) -> JsonResponse:
+    """
+    Добавление и удаление лайка
+    """
+    rec_slug = request.POST.get("slug")
+    action = request.POST.get("action")
+    if rec_slug and action:
+        try:
+            receipe = Receipe.objects.get(slug=rec_slug)
+            if action == "like":
+                receipe.user_likes.add(request.user)
+            else:
+                receipe.user_likes.remove(request.user)
+            return JsonResponse({"status": "ok"})
+        except Exception:
+            ...
+        return JsonResponse({"status": "error"})

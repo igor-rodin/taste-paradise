@@ -7,6 +7,7 @@ from .views import (
     ListReceipe,
     get_receipes_by_tag,
     UpdateReceipeView,
+    like,
 )
 
 app_name = "receips"
@@ -29,4 +30,5 @@ urlpatterns = [
         "receipes/tags/<slug:tag_slug>/", get_receipes_by_tag, name="receipes_by_tags"
     ),
     path("receipes/add/", add_receipe, name="add_receipe"),
+    path("receipes/like/", like, name="like_receipe"),
 ]

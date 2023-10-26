@@ -78,7 +78,9 @@
                     {% elif  request.user == receipe.author %}
                         <a class="likes__link" title="Авторы не могут себя лайкать">
                     {% else %}
-                         <a class="likes__link" href="" title="Посавьте лайк если вам понравился рецепт">
+                         <a class="likes__link" data-slug="{{receipe.slug}}" 
+                         data-action="{% if request.user in receipe.user_likes.all %}unlike{% else %}like{%endif%}"
+                         href="" title="Посавьте лайк если вам понравился рецепт">
                     {% endif %}
                         <img src=" {% static 'img/receipe/like-button-icon.svg' %}" alt="icon" class="likes__image"></a>
                     <div class="likes__data">{{receipe.user_likes.count}}</div>
@@ -86,16 +88,30 @@
             </div>
         </div>
     </main>
-{% comment %} <div class="card">
-                <div class="card-header">
-                    {{ receipe.created}} - {{receipe.author.username}} [{{receipe.category}}]
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ receipe.title }}</h5>
-                    <p class="card-text"> {{receipe.description}}</p>
-                    <p class="card-text"> {{receipe.cooking_steps}}</p>
-                    <p class="card-text"> {{receipe.ingredient}}</p>
-                    <a href="{% url "receips:index" %}" class="btn btn-primary">Назад</a>
-                </div>
-            </div>  {% endcomment %}
 {% endblock content %}
+
+{% block js_loaded %}
+    const like_url = "{% url 'receips:like_receipe' %}"
+    options = {method: "POST", headers: {"X-CSRFToken": csrf_token}, mode: "same-origin"}
+    document.querySelector("a.likes__link").addEventListener('click', function(event) {
+        event.preventDefault()
+        const btn = this
+
+        const formData = new FormData()
+        formData.append('slug', btn.dataset.slug)
+        formData.append('action', btn.dataset.action)
+        options["body"] = formData
+
+        fetch(like_url, options).then(response => response.json()).then(data => {
+            if (data["status"] === "ok") {
+                const prevValue = btn.dataset.action
+                const newValue = prevValue  === "like"? "unlike" : "like"
+                btn.dataset.action = newValue;
+
+                const likesData = document.querySelector(".likes__data")
+                likesData.innerHTML = prevValue  === "like"? parseInt(likesData.innerHTML) + 1 : parseInt(likesData.innerHTML) - 1
+                console.log(likesData.innerHTML)
+            }
+        })
+    })
+{% endblock js_loaded %}
