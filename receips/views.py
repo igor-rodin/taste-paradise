@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.decorators.http import require_POST
+from django.db.models import Count
 
 from .forms import ReceipeForm
 from .models import Receipe, Category
@@ -16,6 +17,7 @@ def index(request: HttpRequest) -> HttpResponse:
     receips = (
         Receipe.objects.select_related("author")
         .prefetch_related("tags", "user_likes")
+        .annotate(total_likes=Count("user_likes"))
         .all()[:show_receipes]
     )
 
@@ -46,6 +48,7 @@ class DetailReceipe(DetailView):
             Receipe.objects.filter(slug=self.kwargs["rec_slug"])
             .select_related("author", "category")
             .prefetch_related("tags", "user_likes")
+            .annotate(total_likes=Count("user_likes"))
             .first()
         )
 

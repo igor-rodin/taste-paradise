@@ -82,7 +82,8 @@
                         href="" title="Посавьте лайк если вам понравился рецепт">
                     {% endif %}
                         <img src=" {% static 'img/receipe/like-button-icon.svg' %}" alt="icon" class="likes__image"></a>
-                    <div class="likes__data">{{receipe.user_likes.count}}</div>
+                    {% comment %} <div class="likes__data">{{receipe.user_likes.count}}</div> {% endcomment %}
+                    <div class="likes__data">{{receipe.total_likes}}</div>
                 </div>
             </div>
         </div>
