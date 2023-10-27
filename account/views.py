@@ -1,11 +1,16 @@
+"""
+Модуль с моделями регистрации, входа, изменения пароля и профиля
+"""
+
 from typing import Any
-from django.forms.models import BaseModelForm
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.generic import CreateView, DetailView
+from django.views.generic import DetailView
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     LoginView,
@@ -25,31 +30,30 @@ from .models import Profile
 from receips.models import Receipe
 
 
-class RegisterView(CreateView):
-    form_class = RegisterForm
-    template_name = "account/register.html"
-    success_url = reverse_lazy("receips:all_receipes")
-
-    def form_valid(self, form: BaseModelForm) -> HttpResponse:
-        response = super().form_valid(form)
-        username = form.cleaned_data.get("username")
-        pwd = form.cleaned_data.get("pwd")
-        new_user = authenticate(self.request, username=username, password=pwd)
-        login(self.request, user=new_user)
-        return response
-
-
 class UserLogin(LoginView):
+    """
+    Класс для входа в аккаунт
+    """
+
     template_name = "account/login.html"
     form_class = UserLoginForm
     redirect_authenticated_user = True
 
 
 class UserLogout(LogoutView):
+    """
+    Класс для выхода из аккаунта
+    """
+
     next_page = reverse_lazy("receips:index")
 
 
-class ChangeUserPassword(PasswordChangeView):
+class ChangeUserPassword(LoginRequiredMixin, PasswordChangeView):
+    """
+    Класс для изменения пароля
+
+    """
+
     template_name = "account/change_password.html"
     form_class = UserChangePasswordForm
     success_url = reverse_lazy("account:password_change_done")
@@ -60,9 +64,19 @@ class ChangeUserPasswordDone(PasswordChangeDoneView):
 
 
 def register(request: HttpRequest) -> HttpResponse:
+    """
+    Функция регистрации пользователя
+    """
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data.get("email")
+            check_user = User.objects.filter(email=email).first()
+            if check_user:
+                messages.error(
+                    request, "Пользователь с таким email уже существует", "error"
+                )
+                return redirect(request.path)
             new_user = form.save()
             if new_user:
                 username = form.cleaned_data.get("username")
@@ -80,10 +94,15 @@ def register(request: HttpRequest) -> HttpResponse:
     )
 
 
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin, DetailView):
+    """
+    Класс для отображения профиля пользователя
+    """
+
     model = Profile
     template_name = "account/profile.html"
     context_object_name = "profile"
+    login_url = reverse_lazy("account:login")
 
     def get_object(self, queryset=None):
         profile = (
@@ -102,12 +121,22 @@ class ProfileView(DetailView):
 
 @login_required
 def profile_edit(request: HttpRequest) -> HttpResponse:
+    """
+    Функция редактирования профиля пользователя
+    """
     if request.method == "POST":
         user_form = UserEditForm(instance=request.user, data=request.POST)
         profile_form = ProfileEditForm(
             instance=request.user.profile, data=request.POST, files=request.FILES
         )
         if user_form.is_valid() and profile_form.is_valid():
+            email = user_form.cleaned_data.get("email")
+            check_user = User.objects.filter(email=email).first()
+            if check_user:
+                messages.error(
+                    request, "Пользователь с таким email уже существует", "error"
+                )
+                return redirect(request.path)
             user_form.save()
             profile_form.save()
             return redirect(reverse_lazy("account:profile"))

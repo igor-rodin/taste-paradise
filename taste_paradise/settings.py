@@ -155,3 +155,4 @@ TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True
 
 LOGIN_REDIRECT_URL = reverse_lazy("receips:all_receipes")
+LOGIN_URL = reverse_lazy("account:login")

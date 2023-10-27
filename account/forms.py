@@ -10,6 +10,10 @@ from .models import Profile
 
 
 class RegisterForm(UserCreationForm):
+    """
+    Форма регистрации поьзователя
+    """
+
     username = forms.CharField(
         label="Имя пользователя",
         widget=forms.TextInput(
@@ -47,6 +51,10 @@ class RegisterForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
+    """
+    Форма входа в аккаунт
+    """
+
     username = forms.CharField(
         label="Имя пользователя",
         widget=forms.TextInput(
@@ -63,6 +71,10 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserChangePasswordForm(PasswordChangeForm):
+    """
+    Форма изменения пароля
+    """
+
     old_password = forms.CharField(
         label="Текущий пароль",
         help_text="Не менее 8 символов",
@@ -89,6 +101,10 @@ class UserChangePasswordForm(PasswordChangeForm):
 
 
 class UserEditForm(forms.ModelForm):
+    """
+    Форма редактировани пользователя
+    """
+
     email = forms.EmailField(
         label="Email",
         widget=forms.EmailInput(
@@ -102,6 +118,10 @@ class UserEditForm(forms.ModelForm):
 
 
 class ProfileEditForm(forms.ModelForm):
+    """
+    Форма редактирования профиля пользователя
+    """
+
     avatar = forms.ImageField(
         label="Аватарка",
         widget=forms.FileInput(attrs={"class": "control__input"}),

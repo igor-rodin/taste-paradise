@@ -1,3 +1,7 @@
+"""
+Модуль с моделями, описывающие кулинарный рецепт
+"""
+
 from django.db import models
 from django.conf import settings
 from django.shortcuts import reverse
@@ -7,6 +11,10 @@ from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
+    """
+    Категория рецепта
+    """
+
     title = models.CharField(max_length=128, verbose_name="Категория")
     slug = models.SlugField(max_length=128, unique=True, db_index=True)
     image = models.ImageField(
@@ -23,6 +31,10 @@ class Category(models.Model):
 
 
 class Receipe(models.Model):
+    """
+    Класс модели рецепта
+    """
+
     title = models.CharField(max_length=128, verbose_name="Название")
     slug = models.SlugField(max_length=128, unique=True, verbose_name="url")
     description = models.TextField(verbose_name="Описание рецепта")

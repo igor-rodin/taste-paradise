@@ -13,6 +13,7 @@
     <link rel="stylesheet" href=" {% static 'css/main.css' %}" />
     <title>{% block title %}Рай Вкусов{% endblock title %}</title>
   </head>
+
   <body>
     <header class="header">
       <div class="center">
@@ -63,6 +64,13 @@
         </div>
       </div>
     </header>
+    <section class="messages">
+      <div class="center">
+        {% if messages %} {% for message in messages %}
+        <div class="message {{message.tags}}  messages__item">{{message}}</div>
+        {%endfor%} {%endif %}
+      </div>
+    </section>
     {% block content %} {% endblock content %}
     <footer class="footer">
       <div class="center">
@@ -74,7 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", (event) => {
-        const csrf_token =Cookies.get('csrftoken')
+        const csrf_token = Cookies.get('csrftoken')
         {% block js_loaded %}
 
         {% endblock js_loaded %}

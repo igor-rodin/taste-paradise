@@ -5,6 +5,10 @@ from taggit.forms import TagWidget
 
 
 class ReceipeForm(forms.ModelForm):
+    """
+    Форма заполнения кулинарного рецепта
+    """
+
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         label="Категория",
