@@ -20,7 +20,6 @@
                     <div class="receipe-info__user user-info info-item">
                         <div class="user-info__avatar avatar">
                             <img class="avatar__image" src=" {{receipe.author.profile.avatar.url}}" alt="avatar">
-                            {% comment %} <img class="avatar__image" src=" {% static 'img/user.jpg' %}" alt="avatar"> {% endcomment %}
                         </div>
                         <div class="info__right">
                             <div class="user-info__name">{{receipe.author}}</div>
@@ -78,9 +77,9 @@
                     {% elif  request.user == receipe.author %}
                         <a class="likes__link" title="Авторы не могут себя лайкать">
                     {% else %}
-                         <a class="likes__link" data-slug="{{receipe.slug}}" 
-                         data-action="{% if request.user in receipe.user_likes.all %}unlike{% else %}like{%endif%}"
-                         href="" title="Посавьте лайк если вам понравился рецепт">
+                        <a class="likes__link" data-slug="{{receipe.slug}}" 
+                        data-action="{% if request.user in receipe.user_likes.all %}unlike{% else %}like{%endif%}"
+                        href="" title="Посавьте лайк если вам понравился рецепт">
                     {% endif %}
                         <img src=" {% static 'img/receipe/like-button-icon.svg' %}" alt="icon" class="likes__image"></a>
                     <div class="likes__data">{{receipe.user_likes.count}}</div>

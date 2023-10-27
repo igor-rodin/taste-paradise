@@ -17,6 +17,7 @@
           {% for item in receips %}
           <a class="receipe-card--link" href="{{ item.get_absolute_url }}">
             <div class="receips__item receipe-card">
+              {% if item.image %}
               <div class="receipe-card__left">
                 <img
                   class="receive-card__image"
@@ -24,6 +25,7 @@
                   alt="photo"
                 />
               </div>
+              {% endif %}
               <div class="receipe-card__right receipe-card-info">
                 <div class="receipe-card-info__title">{{item.title}}</div>
                 <div class="receipe-card-info__text">

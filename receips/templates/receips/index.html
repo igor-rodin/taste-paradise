@@ -6,10 +6,10 @@
 
 {% block avatar %}
     <img
-                class="profile__img"
-                src=" {{ request.user.profile.avatar.url }} "
-                alt="Профиль"
-              />
+        class="profile__img"
+        src=" {{ request.user.profile.avatar.url }} "
+        alt="Профиль"
+    />
 {% endblock avatar %}
 {% block content %}
 <section class="categories">
@@ -36,36 +36,38 @@
                 <div class="featured-content__text">Несколько простых рецептов, пользующиеся популярньстью</div>
                 <div class="featured-content__items">
                     {% for item in receips %}
+                    <a href="{{item.get_absolute_url}} " class="featured-receipe-card__link">
                         <div class="featured-receipe-card">
-                            <a href="{{item.get_absolute_url}} " class="featured-receipe-card__link">
+                            {% if item.image %}
                                 <div class="featured-receipe-card__image-wrapper">
                                     <img src="{{item.image.url}}" alt="рецепт" class="featured-receipe-card__image">
                                 </div>
-                            </a>
-                            <h3 class="featuerd-receipe-card__title"> {{item.title}}
-                            </h3>
-                            <div class="featured-receipe-card__bottom">
-                                <div class="featured-receipe-card__time featured-receipe-card__bottom-item">
-                                    <img src=" {% static '/img/receipe/Timer.svg' %} " alt="icon"
+                            {% endif %}
+                                <h3 class="featuerd-receipe-card__title"> {{item.title}}
+                                </h3>
+                                <div class="featured-receipe-card__bottom">
+                                    <div class="featured-receipe-card__time featured-receipe-card__bottom-item">
+                                        <img src=" {% static '/img/receipe/Timer.svg' %} " alt="icon"
                                         class="featured-receipe-card__bottom-item__image">
-                                    <div class="featured-receipe-card__bottom-item__text">{{item.cooking_time}} минут</div>
-                                </div>
-
-                                {% if item.tags %}
+                                        <div class="featured-receipe-card__bottom-item__text">{{item.cooking_time}} минут</div>
+                                    </div>
+                                    
+                                    {% if item.tags %}
                                     <div class="featured-receipe-card__tag featured-receipe-card__bottom-item">
                                         <img src="{% static 'img/receipe/ForkKnife.svg' %}" alt="icon"
-                                            class="featured-receipe-card__bottom-item__image">
+                                        class="featured-receipe-card__bottom-item__image">
                                         <div class="featured-receipe-card__bottom-item__text"> {{item.tags.all | join:", "}}</div>
                                     </div>
-                                {% endif %}
-                                
-                                <div class="featured-receipe-card__like featured-receipe-card__bottom-item">
-                                    <img src="{% static 'img/receipe/like-button-icon.svg'%} " alt="icon"
+                                    {% endif %}
+                                    
+                                    <div class="featured-receipe-card__like featured-receipe-card__bottom-item">
+                                        <img src="{% static 'img/receipe/like-button-icon.svg'%} " alt="icon"
                                         class="featured-receipe-card__bottom-item__image">
-                                    <div class="featured-receipe-card__bottom-item__text">{{item.user_likes.count}}</div>
+                                        <div class="featured-receipe-card__bottom-item__text">{{item.user_likes.count}}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                    </a>
                     {% endfor %}
                 </div>
             </div>
