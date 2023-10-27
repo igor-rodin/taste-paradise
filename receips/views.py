@@ -47,7 +47,7 @@ class DetailReceipe(DetailView):
         return (
             Receipe.objects.filter(slug=self.kwargs["rec_slug"])
             .select_related("author", "category")
-            .prefetch_related("tags", "user_likes")
+            .prefetch_related("tags")
             .annotate(total_likes=Count("user_likes"))
             .first()
         )
